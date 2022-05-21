@@ -19,4 +19,13 @@ namespace CrudIntelectah.Models
 
         public string Email { get; set; }
     }
+
+    public class TypeOfExam
+    {
+        public int TypeOfExamId { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+    }
 }

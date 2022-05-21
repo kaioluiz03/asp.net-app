@@ -26,4 +26,15 @@ namespace CrudIntelectah.ViewModels
         [Required]
         public string Email { get; set; }
     }
+
+    public class CreateTypeOfExamViewModel
+    {
+        public int TypeOfExamId { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string Description { get; set; }
+    }
 }

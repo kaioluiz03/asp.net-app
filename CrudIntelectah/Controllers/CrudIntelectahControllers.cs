@@ -143,7 +143,7 @@ namespace CrudIntelectah.Controllers
                 context.Patients.Remove(patient);
                 await context.SaveChangesAsync();
 
-                return Ok("Colocar Mensagem");
+                return Ok("O paciente foi apagado com êxito!");
             }
             catch (System.Exception)
             {
@@ -266,7 +266,7 @@ namespace CrudIntelectah.Controllers
                 context.TypeOfExams.Remove(typeofexam);
                 await context.SaveChangesAsync();
 
-                return Ok("Colocar Mensagem");
+                return Ok("O tipo de exame foi apagado com êxito!");
             }
             catch (System.Exception)
             {
@@ -413,14 +413,14 @@ namespace CrudIntelectah.Controllers
                 context.ExamRecords.Remove(examrecord);
                 await context.SaveChangesAsync();
 
-                return Ok("Colocar Mensagem");
+                return Ok("O cadastro de exame foi apagado com êxito!");
             }
             catch (System.Exception)
             {
                 return BadRequest();
             }
         }
-        //Tabela 3 - Marca��o de consulta
+        //Tabela 4 - Marcacao de consulta
         //GET
         [HttpGet]
         [Route(template: "marcarconsulta")]
@@ -479,6 +479,9 @@ namespace CrudIntelectah.Controllers
                 .AppointmentsScheduling
                 .AsNoTracking()
                 .FirstOrDefaultAsync(d => d.ConsultationDate == infoModels.ConsultationDate);
+
+            Guid consultationUUId = Guid.NewGuid();
+            string convertedConsultationUUID = consultationUUId.ToString();
 
             var AppointmentScheduling = new AppointmentScheduling
             {
@@ -581,7 +584,7 @@ namespace CrudIntelectah.Controllers
                 context.AppointmentsScheduling.Remove(appointmentscheduling);
                 await context.SaveChangesAsync();
 
-                return Ok("Colocar Mensagem");
+                return Ok("A consulta foi apagada com êxito!");
             }
             catch (System.Exception)
             {

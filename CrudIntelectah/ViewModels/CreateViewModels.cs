@@ -42,10 +42,13 @@ namespace CrudIntelectah.ViewModels
     {
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public string Observation { get; set; }
 
+        [Required]
         public int TypeOfExamId { get; set; }
     }
 
@@ -53,8 +56,10 @@ namespace CrudIntelectah.ViewModels
     {
         public int Id { get; set; }
 
+        [Required]
         public string PatientId { get; set; }
 
+        [Required]
         public int ExamRecordId { get; set; }
 
         public DateTime ConsultationDate { get; set; }

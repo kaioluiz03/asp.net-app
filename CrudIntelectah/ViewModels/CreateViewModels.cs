@@ -6,7 +6,7 @@ namespace CrudIntelectah.ViewModels
 
     public class CreatePatientViewModel
     {
-        public int PatientId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -29,12 +29,36 @@ namespace CrudIntelectah.ViewModels
 
     public class CreateTypeOfExamViewModel
     {
-        public int TypeOfExamId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string Name { get; set; }
 
         [Required]
         public string Description { get; set; }
+    }
+
+    public class CreateExamRecordViewModel
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Observation { get; set; }
+
+        public int TypeOfExamId { get; set; }
+    }
+
+    public class CreateAppointmentSchedulingViewModel
+    {
+        public int Id { get; set; }
+
+        public string PatientId { get; set; }
+
+        public int ExamRecordId { get; set; }
+
+        public DateTime ConsultationDate { get; set; }
+
+        public string ProtocolNumber { get; set; }
     }
 }

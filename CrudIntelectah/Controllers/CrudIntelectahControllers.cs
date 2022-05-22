@@ -19,7 +19,7 @@ namespace CrudIntelectah.Controllers
         //Tabela 1 - Pacientes
         //GET
         [HttpGet]
-        [Route(template: "patients")]
+        [Route(template: "pacientes")]
 
         public async Task<IActionResult> GetAsync(
             [FromServices] PatientDbContext context)
@@ -34,7 +34,7 @@ namespace CrudIntelectah.Controllers
 
         //GET FOR ID
         [HttpGet]
-        [Route(template: "patients/{id}")]
+        [Route(template: "pacientes/{id}")]
 
         public async Task<IActionResult> GetByIdAsync(
             [FromServices] PatientDbContext context,
@@ -43,7 +43,7 @@ namespace CrudIntelectah.Controllers
             var patient = await context
                 .Patients
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.PatientId == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return patient == null
                 ? NotFound()
@@ -52,7 +52,7 @@ namespace CrudIntelectah.Controllers
 
         //POST
         [HttpPost]
-        [Route(template: "patients")]
+        [Route(template: "pacientes")]
 
         public async Task<IActionResult> PostAsync(
             [FromServices] PatientDbContext context,
@@ -80,7 +80,7 @@ namespace CrudIntelectah.Controllers
             {
                 await context.Patients.AddAsync(patient);
                 await context.SaveChangesAsync();
-                return Created($"v1/patients/{patient.PatientId}", patient);
+                return Created($"v1/pacientes/{patient.Id}", patient);
             }
             catch (System.Exception)
             {
@@ -90,7 +90,7 @@ namespace CrudIntelectah.Controllers
 
         //PUT
         [HttpPut]
-        [Route(template: "patients/{id}")]
+        [Route(template: "pacientes/{id}")]
 
         public async Task<IActionResult> PutAsync(
             [FromServices] PatientDbContext context,
@@ -102,7 +102,7 @@ namespace CrudIntelectah.Controllers
 
             var patient = await context
                 .Patients
-                .FirstOrDefaultAsync(x => x.PatientId == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (patient == null)
                 return NotFound();
@@ -121,7 +121,7 @@ namespace CrudIntelectah.Controllers
 
                 return Ok(patient);
             }
-            catch (Exception e)
+            catch (System.Exception)
             {
                 return BadRequest();
             }
@@ -129,7 +129,7 @@ namespace CrudIntelectah.Controllers
 
         //DELETE
         [HttpDelete]
-        [Route(template: "patients/{id}")]
+        [Route(template: "pacientes/{id}")]
 
         public async Task<IActionResult> DeleteAsync(
             [FromServices] PatientDbContext context,
@@ -137,7 +137,7 @@ namespace CrudIntelectah.Controllers
         {
             var patient = await context
                 .Patients
-                .FirstOrDefaultAsync(x => x.PatientId == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
             try
             {
                 context.Patients.Remove(patient);
@@ -145,7 +145,7 @@ namespace CrudIntelectah.Controllers
 
                 return Ok("Colocar Mensagem");
             }
-            catch (Exception e)
+            catch (System.Exception)
             {
                 return BadRequest();
             }
@@ -153,7 +153,7 @@ namespace CrudIntelectah.Controllers
         //Tabela 2 - Tipos de Exames
         //GET
         [HttpGet]
-        [Route(template: "typesofexams")]
+        [Route(template: "tiposdeexames")]
 
         public async Task<IActionResult> GetTypeOfExamsAsync(
             [FromServices] PatientDbContext context)
@@ -168,7 +168,7 @@ namespace CrudIntelectah.Controllers
 
         //GET FOR ID
         [HttpGet]
-        [Route(template: "typesofexams/{id}")]
+        [Route(template: "tiposdeexames/{id}")]
 
         public async Task<IActionResult> GetTypeOfExamsByIdAsync(
             [FromServices] PatientDbContext context,
@@ -177,7 +177,7 @@ namespace CrudIntelectah.Controllers
             var typeofexams = await context
                 .TypeOfExams
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.TypeOfExamId == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return typeofexams == null
                    ? NotFound()
@@ -186,7 +186,7 @@ namespace CrudIntelectah.Controllers
 
         //POST
         [HttpPost]
-        [Route(template: "typesofexams")]
+        [Route(template: "tiposdeexames")]
 
         public async Task<IActionResult> PostTypeOfExamsAsync(
             [FromServices] PatientDbContext context,
@@ -206,7 +206,7 @@ namespace CrudIntelectah.Controllers
             {
                 await context.TypeOfExams.AddAsync(typeofexam);
                 await context.SaveChangesAsync();
-                return Created($"v1/typesofexams/{typeofexam.TypeOfExamId}", typeofexam);
+                return Created($"v1/tiposdeexames/{typeofexam.Id}", typeofexam);
             }
             catch (System.Exception)
             {
@@ -216,7 +216,7 @@ namespace CrudIntelectah.Controllers
 
         //PUT
         [HttpPut]
-        [Route(template: "typesofexams/{id}")]
+        [Route(template: "tiposdeexames/{id}")]
 
         public async Task<IActionResult> PutTypeOfExamsAsync(
             [FromServices] PatientDbContext context,
@@ -228,7 +228,7 @@ namespace CrudIntelectah.Controllers
 
             var typeofexams = await context
              .TypeOfExams
-             .FirstOrDefaultAsync(x => x.TypeOfExamId == id);
+             .FirstOrDefaultAsync(x => x.Id == id);
 
             if (typeofexams == null)
                 return NotFound();
@@ -251,7 +251,7 @@ namespace CrudIntelectah.Controllers
 
         //DELETE
         [HttpDelete]
-        [Route(template: "typeofexams/{id}")]
+        [Route(template: "tiposdeexames/{id}")]
 
         public async Task<IActionResult> DeleteTypeOfExamsAsync(
             [FromServices] PatientDbContext context,
@@ -259,7 +259,7 @@ namespace CrudIntelectah.Controllers
         {
             var typeofexam = await context
                 .TypeOfExams
-                .FirstOrDefaultAsync(x => x.TypeOfExamId == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             try
             {
@@ -268,10 +268,325 @@ namespace CrudIntelectah.Controllers
 
                 return Ok("Colocar Mensagem");
             }
-            catch (Exception e)
+            catch (System.Exception)
+            {
+                return BadRequest();
+            }
+        }
+        //Tabela 3 - Cadastro de Exames
+        //GET
+        [HttpGet]
+        [Route(template: "cadastrodeexames")]
+
+        public async Task<IActionResult> GetAsyncExamRecord(
+            [FromServices] PatientDbContext context)
+        {
+            var examrecord = await context
+                .ExamRecords
+                .AsNoTracking()
+                .ToListAsync();
+
+            return Ok(examrecord);
+        }
+
+        //GET FOR ID
+        [HttpGet]
+        [Route(template: "cadastrodeexames/{id}")]
+
+        public async Task<IActionResult> GetAsyncExamRecodById(
+            [FromServices] PatientDbContext context,
+            [FromRoute] int id)
+        {
+            var examrecord = await context
+                .ExamRecords
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return examrecord == null
+                   ? NotFound()
+                   : Ok(examrecord);
+        }
+
+        //POST
+        [HttpPost]
+        [Route(template: "cadastrodeexames")]
+
+        public async Task<IActionResult> PostAsyncExamRecord(
+            [FromServices] PatientDbContext context,
+            [FromBody] CreateExamRecordViewModel infoModels)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var typeofexam = await context
+                .TypeOfExams
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == infoModels.TypeOfExamId);
+
+            var examrecord = new ExamRecord
+            {
+                Name = infoModels.Name,
+
+                Observation = infoModels.Observation,
+
+                TypeOfExamId = infoModels.TypeOfExamId
+            };
+
+            try
+            {
+                if (typeofexam != null)
+                {
+                    await context.ExamRecords.AddAsync(examrecord);
+                    await context.SaveChangesAsync();
+
+                    return Created($"v1/cadastrodeexames/{examrecord.Id}", examrecord);
+                }
+
+                return BadRequest();
+            }
+            catch (System.Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        //PUT
+        [HttpPut]
+        [Route(template: "cadastrodeexames/{id}")]
+
+        public async Task<IActionResult> PutAsyncExamRecord(
+            [FromServices] PatientDbContext context,
+            [FromBody] CreateExamRecordViewModel infoModels,
+            [FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var examrecord = await context
+             .ExamRecords
+             .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (examrecord == null)
+                return NotFound();
+
+            var typeofexam = await context
+                .TypeOfExams
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == infoModels.TypeOfExamId);
+
+            try
+            {
+                if (typeofexam != null)
+                {
+                    examrecord.Name = infoModels.Name;
+                    examrecord.Observation = infoModels.Observation;
+                    examrecord.TypeOfExamId = infoModels.TypeOfExamId;
+
+                    context.ExamRecords.Update(examrecord);
+                    await context.SaveChangesAsync();
+
+                    return Ok(examrecord);
+                }
+
+                return BadRequest();
+            }
+            catch (System.Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        //DELETE
+        [HttpDelete]
+        [Route(template: "cadastrodeexames/{id}")]
+
+        public async Task<IActionResult> DeleteAsyncExamRecord(
+            [FromServices] PatientDbContext context,
+            [FromRoute] int id)
+        {
+            var examrecord = await context
+                .ExamRecords
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            try
+            {
+                context.ExamRecords.Remove(examrecord);
+                await context.SaveChangesAsync();
+
+                return Ok("Colocar Mensagem");
+            }
+            catch (System.Exception)
+            {
+                return BadRequest();
+            }
+        }
+        //Tabela 3 - Marca��o de consulta
+        //GET
+        [HttpGet]
+        [Route(template: "marcarconsulta")]
+
+        public async Task<IActionResult> GetAsyncAppointmentScheduling(
+            [FromServices] PatientDbContext context)
+        {
+            var AppointmentScheduling = await context
+                .AppointmentsScheduling
+                .AsNoTracking()
+                .ToListAsync();
+
+            return Ok(AppointmentScheduling);
+        }
+
+        //GET FOR ID
+        [HttpGet]
+        [Route(template: "marcarconsulta/{id}")]
+
+        public async Task<IActionResult> GetAsyncAppointmentSchedulingById(
+            [FromServices] PatientDbContext context,
+            [FromRoute] int id)
+        {
+            var AppointmentScheduling = await context
+                .AppointmentsScheduling
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return AppointmentScheduling == null
+                ? NotFound()
+                : Ok(AppointmentScheduling);
+        }
+
+        //POST
+        [HttpPost]
+        [Route(template: "marcarconsulta")]
+
+        public async Task<IActionResult> PostAsyncAppointmentScheduling(
+            [FromServices] PatientDbContext context,
+            [FromBody] CreateAppointmentSchedulingViewModel infoModels)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var patient = await context
+                .Patients
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Cpf == infoModels.PatientId || p.Name == infoModels.PatientId);
+
+            var exam = await context
+                .ExamRecords
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Id == infoModels.ExamRecordId);
+
+            var date = await context
+                .AppointmentsScheduling
+                .AsNoTracking()
+                .FirstOrDefaultAsync(d => d.ConsultationDate == infoModels.ConsultationDate);
+
+            var AppointmentScheduling = new AppointmentScheduling
+            {
+                PatientId = infoModels.PatientId,
+                ExamRecordId = infoModels.ExamRecordId,
+                ConsultationDate = infoModels.ConsultationDate,
+                ProtocolNumber = convertedConsultationUUID
+            };
+
+            try
+            {
+                if (patient != null && exam != null)
+                {
+                    if (date == null)
+                    {
+                        await context.AppointmentsScheduling.AddAsync(AppointmentScheduling);
+                        await context.SaveChangesAsync();
+                        return Created(uri: $"v1/marcarconsulta/{AppointmentScheduling.Id}", AppointmentScheduling);
+                    }
+
+                    return BadRequest();
+                }
+                return BadRequest();
+            }
+            catch (System.Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        //PUT
+        [HttpPut]
+        [Route(template:"marcarconsulta/{id}")]
+
+        public async Task<IActionResult> PutAsyncAppointmentScheduling(
+            [FromServices] PatientDbContext context,
+            [FromBody] CreateAppointmentSchedulingViewModel infoModels,
+            [FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var appointmentScheduling = await context
+                .AppointmentsScheduling
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            var patient = await context
+                .Patients
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Cpf == infoModels.PatientId || p.Name == infoModels.PatientId);
+
+            var exam = await context
+                .ExamRecords
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Id == infoModels.ExamRecordId);
+
+            if (appointmentScheduling == null)
+                return BadRequest();
+
+            try
+            {
+                if(patient != null && exam != null)
+                {
+                    appointmentScheduling.PatientId = infoModels.PatientId;
+                    appointmentScheduling.ExamRecordId = infoModels.ExamRecordId;
+                    appointmentScheduling.ConsultationDate = infoModels.ConsultationDate;
+                    appointmentScheduling.ProtocolNumber = infoModels.ProtocolNumber;
+
+                    context.AppointmentsScheduling.Update(appointmentScheduling);
+                    await context.SaveChangesAsync();
+
+                    return Ok(appointmentScheduling);
+                }
+
+                return BadRequest();
+            }
+            catch(System.Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        //DELETE
+        [HttpDelete]
+        [Route(template: "marcarconsulta/{id}")]
+
+        public async Task<IActionResult> DeleteAsyncAppointmentScheduling(
+            [FromServices] PatientDbContext context,
+            [FromRoute] int id)
+        {
+            var appointmentscheduling = await context
+                .AppointmentsScheduling
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (appointmentscheduling == null)
+                return NotFound();
+
+            try
+            {
+                context.AppointmentsScheduling.Remove(appointmentscheduling);
+                await context.SaveChangesAsync();
+
+                return Ok("Colocar Mensagem");
+            }
+            catch (System.Exception)
             {
                 return BadRequest();
             }
         }
     }
-}
+} 

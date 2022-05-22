@@ -5,7 +5,7 @@ namespace CrudIntelectah.Models
 {
     public class Patient
     {
-        public int PatientId { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -22,10 +22,34 @@ namespace CrudIntelectah.Models
 
     public class TypeOfExam
     {
-        public int TypeOfExamId { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
         public string Description { get; set; }
+    }
+
+    public class ExamRecord
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Observation { get; set; }
+
+        public int TypeOfExamId { get; set; }
+    }
+
+    public class AppointmentScheduling
+    {
+        public int Id { get; set; }
+
+        public string PatientId { get; set; }
+
+        public int ExamRecordId { get; set; }
+
+        public DateTime ConsultationDate { get; set; }
+
+        public string ProtocolNumber { get; set; }
     }
 }
